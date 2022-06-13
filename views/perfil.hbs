@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="icon" href="img/logo.png">
+    
+    <title>TesiDate</title>
+  </head>
+  <body>
+
+    <div class="" id="contPerfil">
+        
+      <section id="topPerfil">
+        <div id="contImgPerfil">
+          <img src="{{foto}}" alt="" id="imgPerfil">
+        </div>
+        <div id="descPerfil">
+          <h1>{{nombre}}</h1>
+        </div>
+      </section>
+
+      <section id="editPerfil">
+        <form method="post" action="/perfil/update">
+        <h2>Editar datos personales</h2>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Edad</label>
+            <input type="number" class="form-control" id="label" value="{{edad}}" name="edad">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Descripción</label>
+            <textarea class="form-control" id="label" rows="3" name="descripcion">{{descripcion}}</textarea>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Carrera</label>
+            <select class="form-select" id="label" name="carrera">
+              <option selected>{{carrera}}</option>
+              <option value="Ing. Sistemas Comp.">Ing. Sistemas Comp.</option>
+              <option value="Ing. Informática">Ing. Informática</option>
+              <option value="Ing. Electrónica">Ing. Electrónica</option>
+              <option value="Ing. Biomédica">Ing. Biomédica</option>
+              <option value="Ing. Ambiental">Ing. Ambiental</option>
+              <option value="Lic. Arquitectura">Lic. Arquitectura</option>
+              <option value="Lic. Administración">Lic. Administración</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Genero</label>
+            <select class="form-select" id="label" name="genero">
+              <option selected>{{genero}}</option>
+              <option value="Hombre">Hombre</option>
+              <option value="Mujer">Mujer</option>
+              <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="label" name="nombre" value='{{nombre}}'>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="label" name="apellidos" value="{{apellidos}}">
+          </div>
+
+          <button type="submit" class="btn" id="btnGuardar">Guardar</button>
+
+        </form>
+        <hr>
+        <h2>Cambiar foto de perfil</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Foto</label>
+            <input class="form-control" type="file" id="label" name="imagen">
+          </div>
+          <button type="submit" class="btn" id="btnGuardarFoto">Subir foto</button>
+        </form>
+        <hr>
+          <a href="/logout" id="btnCerrar" class="btn mt-2">Cerrar sesión</a>
+      </section>
+    </div>
+
+    
+    <!-- Nav -->
+      <div class="container-sm">
+          <div class="row" id="nav">
+            <div class="col">
+              <a href="/principal">Inicio</a>
+            </div>
+            <div class="col">
+              <a href="/interes">Interes</a> 
+            </div>
+            <div class="col">
+              <a href="/mensajes">Mensajes</a>
+            </div>
+          </div>
+      </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+  </body>
+</html>

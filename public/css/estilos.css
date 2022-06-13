@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+*{
+    font-family: 'Quicksand';
+}
+
+/* @media(max-width: 768px){ */
+    a{
+        text-decoration: none;
+        color: #3f3f3f;
+    }
+    /* Header */
+    header{
+        background-color: #f3f3f3;
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+    }
+    #imgContHeader{
+        position: absolute;
+        left: 0;
+        margin-left: 10px;
+        width: 45pt;
+        height: 45pt;
+        border-radius: 50%;
+        background-color: #f3f3f3;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    #imgHeader{
+        height: auto;
+        width: 100%;
+    }
+    #tituloHeader{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    #tituloHeader h1{
+        margin-top: 7px;
+        color: #00CC8E;
+        font-weight: bold;
+    }
+    #logo{
+        height: 30px;
+        width: 30px;
+    }
+
+    /* Nav */
+    #nav{
+        height: 10vh;
+        text-align: center;
+        border-radius: 20px;
+        background-color: #f3f3f3;
+        display: flex;
+        align-items: center;
+    }
+    #nav a{
+     color: #3f3f3f;
+    }
+
+    /* Login */
+    #formLogin{
+        background-color: white;
+        padding: 35px;
+        margin-top: -10vh;
+        height: 70vh;
+        border-radius: 25px;
+    }
+    
+    #tituloLogin h1{
+        font-size: 40px;
+        font-weight: bold;
+    }
+    #eti{
+        height: 45px;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        color: #3f3f3f;
+        font-size: 20px;
+        background-color: white;
+    }
+    #backLogin{
+        height: 40vh;
+        background-image: url("../img/backLogin.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    #etiIniciar{
+        font-size: 20px;
+        text-align: center;
+        height: 70%;
+    }
+    #etiIniciar a{
+        color: #f3f3f3;
+        text-decoration: none;
+    }
+
+    #opcionesLogin{
+        margin-top: -10vh;
+    }
+
+    #ol{
+        text-align: end;
+    }
+    a{
+        text-decoration: none;
+        font-size: 20px;
+    }
+    #boton{
+        text-align: end;
+        width: 100%;
+    }
+    #btnIniciar{
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        background-color: white;
+        border: none;
+    }
+
+    /* Pagina principal */
+    #contPrincipal{
+       height: 80vh;
+       position: relative;
+   }   
+   #user{
+       position: relative;
+       height: 85%;
+       width: 100%;
+       padding-top: 10px;
+    }
+    #imagen{
+       display: flex;
+       position: relative;
+       justify-content: center;
+       align-items: center;
+       width: 100%;
+       height: 100%;
+       border-radius: 20px; 
+       background-color: #f3f3f3;
+       overflow: hidden;
+    }
+
+    #imgPrincipal{
+        width: auto;
+        height: 100%;
+    }
+
+    #descripcionUsuario{
+        position: absolute;
+        bottom: 0;  
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #f5f5f5;
+        padding: 20px;
+        width: 100%;
+        height: 180pt;
+        border-radius: 20px;
+        overflow-y: scroll;
+    }
+   #botones{
+       width: 100%;
+       height: 15%;
+       border-radius: 20px;
+       text-align: center;
+   }
+   #btnRechazar{
+       color: indianred;
+   }
+   #btnAceptar{
+       color: #00CC8E;
+   }
+
+   /* Perfil */
+   #contPerfil{
+       height: 90vh;
+   }
+   #topPerfil{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       background-color: #f3f3f3;
+       height: 60%;
+       border-bottom-left-radius: 25px;
+       border-bottom-right-radius: 25px;
+   }
+
+   #contPerfil1{
+        height: 80vh;
+    }
+
+   #topPerfil1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #00CC8E;
+    color: #f3f3f3;
+    height: 60%;
+    border-radius: 20px;
+}
+#topPerfil1 a {
+    color: #f3f3f3;
+    text-decoration: none;
+}
+#topPerfil1 a i{
+    font-size: 45px;
+}
+   
+   #contImgPerfil{
+       height: 150pt;
+       width: 150pt;
+       border-radius: 50%;
+       background-color: rgba(0, 0, 0, 0.5);
+       margin-bottom: 30px;
+       overflow: hidden;
+   }
+   #imgPerfil{
+       width: 100%;
+       height: auto;
+   }
+   #editPerfil{
+       padding: 20px;
+       height: 40%;
+       overflow-y: scroll;
+   }
+   #label{
+       border-radius: 10px;
+   }
+   #label2{
+       border-radius: 10px;
+       border: none;
+       background-color: #f3f3f3;
+   }
+   #btnGuardar{
+       width: 100%;
+       border-radius: 10px;
+       background-color: #00CC8E;
+       color: #f3f3f3;
+   }
+   #btnMensaje{
+    width: 100%;
+    border-radius: 10px;
+    color: #f3f3f3;
+}
+   #btnGuardarFoto{
+        width: 100%;
+        border-radius: 10px;
+        background-color: darkorange;
+        color: #f3f3f3;
+    }
+   #btnCerrar{
+    width: 100%;
+    border-radius: 10px;
+    background-color: indianred;
+    color: #f3f3f3;
+    text-decoration: none;
+}
+   
+   /* Mensajes */
+   #contMensajes{
+       height: 70vh;
+       overflow-y: scroll;
+   }
+   #tituloMensajes{
+       height: 10vh;
+       padding: 20px;
+       display: flex;
+       align-items: center;
+       border-bottom: 1px solid #3f3f3f;
+   }
+   #contChat{
+       display: flex;
+       justify-content: center;
+       flex-direction: column;
+       height: 90pt;
+       position: relative;
+       margin-bottom: 5px;
+   }
+   #imgContChat{
+       height: 80pt;
+       width: 80pt;
+       border-radius: 50%;
+       overflow: hidden;
+       position: absolute;
+   }
+   #imgChat{
+       width: 100%;
+       height: auto;
+   }
+   #contChat #chat{
+       margin-left: 85pt;
+       overflow: hidden;
+       height: 50%;
+   }
+
+   /* Interes */
+   #contInteres{
+    height: 70vh;
+    overflow-y: scroll;
+    }
+    #tituloInteres{
+        height: 10vh;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #3f3f3f;
+    }
+  
+    /* Chat */
+    #contChat1{
+        height: 70vh;
+        padding: 20px;
+        overflow-y: scroll;
+    }
+    #contEmisor{
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+    #mensajeEmisor{
+        padding-left: 10px;
+        padding-right: 10px;
+        height: auto;
+        color: #f3f3f3;
+        border-radius: 10px;
+        background-color: #008F64;
+        font-size: 20px;
+        max-width: 70%;
+        margin-bottom: 5px;
+    }
+    #contReceptor{
+        width: 100%;
+        display: flex;
+    }
+    #mensajeReceptor{
+        color: #f3f3f3;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: auto;
+        border-radius: 10px;
+        background-color: #00CC8E;
+        font-size: 20px;
+        max-width: 70%;
+        margin-bottom: 5px;
+    }
+
+    #contEnviar{
+        display: flex;
+        align-items: center;
+        height: 10vh;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: #f3f3f3;
+    }
+    #contEnviar #mensajeChat1{
+        border-radius: 20px;
+        height: 45px;
+        border: none;
+        margin-right: 5px;
+    }
+    #btnEnviar{
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        border: none;
+        background-color: #00CC8E;
+    }
+    #btnEnviar i {
+        font-size: 30px;
+        color: #f3f3f3;
+    }
+    #headerChat {
+        height: 10vh;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        background-color: #00CC8E;
+    }
+    #headerChat a {
+        color: #f3f3f3;
+        text-decoration: none;
+    }
+    #headerChat a i{
+        font-size: 45px;
+    }
+   
+    
+/* } */
