@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // const socket = io();
+    const socket = io();
 
 
     const btnEnviar = document.getElementById('btnEnviar');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         contenedor.appendChild(contEmisor);
 
-        // socket.emit('mensaje-del-cliente', mensaje.value);
+        socket.emit('mensaje-del-cliente', mensaje.value);
         
         mensaje.value = '';
 
