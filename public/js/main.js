@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const socket = io();
+
+
     const btnEnviar = document.getElementById('btnEnviar');
     const contenedor = document.getElementById('contChat1')
     
@@ -15,9 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         contenedor.appendChild(contEmisor);
 
+        socket.emit('mensaje-del-cliente', mensaje.value);
+        
         mensaje.value = '';
 
     }
+
+    socket.on('mensaje-del-servidor', (data) => {
+        let contReceptor = document.createElement("div");
+        contReceptor.id = "contReceptor";
+        contReceptor.innerHTML = `
+            <div id="mensajeReceptor">
+                ${data}
+            </div>
+            `;
+
+            contenedor.appendChild(contReceptor);
+    });
 
     btnEnviar.onclick = enviar;
 });
