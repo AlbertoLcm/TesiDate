@@ -237,10 +237,12 @@ app.post('/perfil/update', (req, res, next)=>{
 
     res.redirect('/');
 }, (req, res) => {
-    const {edad,  descripcion, carrera, genero, nombre, apellidos} = req.body;
+    const {edad, telefono, facebook, descripcion, carrera, genero, nombre, apellidos} = req.body;
 
     conexion.query('UPDATE usuarios SET ? WHERE matricula = ?', [{
         edad: edad,
+        telefono: telefono,
+        facebook: facebook,
         descripcion: descripcion,
         carrera: carrera,
         genero: genero,
