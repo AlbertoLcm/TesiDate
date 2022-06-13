@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
@@ -14,6 +15,11 @@ const PassportLocal = require('passport-local').Strategy;
 require('dotenv').config();
 
 const app = express();
+
+const server = http.createServer(app);
+
+const io = require('socket.io')(server);
+
 app.use(cors());
 const port = process.env.PORT;
 
@@ -131,11 +137,7 @@ app.get('/principal', (req, res, next)=>{
     });
 });
 
-app.get('/chat', (req, res, next)=>{
-    if(req.isAuthenticated()) return next();
-
-    res.redirect('/');
-}, (req, res) => {
+app.get('/chat', (req, res) => {
     res.render('chat');
 });
 
@@ -270,22 +272,15 @@ app.post('/registrar', (req, res) => {
     });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Escuchando en http://localhost:${port}`);
 });
 
-const io = require('socket.io');
+let sockets = io.listen(server);
 
-module.exports = function(server) {
-        var sockets = io.listen(server);
-        
-        sockets.on('connection', function(socket) {
-        
-        console.log('un nuevo usuario conectado');
-
-        socket.on('mensaje-del-cliente', function(data) {
-            sockets.emit('mensaje-del-servidor', data);
-        });
-
-    });
-}
+sockets.on('connection', (socket) => {
+    console.log('Cliente conectado', socket.id);
+    socket.on('mensaje-del-cliente', (mensaje) => {
+        sockets.emit(`mensaje-servidor`, mensaje);
+    })
+});

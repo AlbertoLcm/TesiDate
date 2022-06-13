@@ -18,22 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         contenedor.appendChild(contEmisor);
 
+        console.log('hola desde el boton');
+
         socket.emit('mensaje-del-cliente', mensaje.value);
         
         mensaje.value = '';
 
     }
 
-    socket.on('mensaje-del-servidor', (data) => {
+    socket.on("mensaje-servidor", (mensaje) => {
+        console.log(mensaje);
         let contReceptor = document.createElement("div");
         contReceptor.id = "contReceptor";
         contReceptor.innerHTML = `
             <div id="mensajeReceptor">
-                ${data}
+                ${mensaje}
             </div>
-            `;
+        `;
 
-            contenedor.appendChild(contReceptor);
+        contenedor.appendChild(contReceptor);
     });
 
     btnEnviar.onclick = enviar;
