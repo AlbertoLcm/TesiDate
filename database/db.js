@@ -10,13 +10,13 @@ const conexion = mysql.createPool({
     queueLimit: 0
 });
 
-conexion.connect((err) => {
-    if(err){
-        console.warn('\n\n Error en la BD!! Tira el servidor \n\n');
-        throw err
-    }
-    console.log('Conexion perfecta');
+// conexion.connect((err) => {
+//     if(err){
+//         console.warn('\n\n Error en la BD!! Tira el servidor \n\n');
+//         throw err
+//     }
+//     console.log('Conexion perfecta');
 
-});
+// });
 
 module.exports = conexion; 
