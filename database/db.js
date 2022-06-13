@@ -19,7 +19,7 @@ conexion.connect((err) => {
 var connection;
 
 function handleDisconnect() {
-  connection = mysql.createConnection(db_config); // Recreate the connection, since
+  connection = mysql.createConnection(conexion); // Recreate the connection, since
                                                   // the old one cannot be reused.
 
   connection.connect(function(err) {              // The server is either down
