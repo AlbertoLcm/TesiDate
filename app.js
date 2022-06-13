@@ -109,13 +109,10 @@ app.get('/principal', (req, res, next)=>{
         const usuariosArray = Object.keys(usuarios).map((key) => {
             return [Number(key), usuarios[key]];
         });
-        
         usuariosArray.forEach((user, iterable) => {
             usuariosMatchs.push(usuarios[iterable].matricula_match);
         });
-        
         console.log(usuariosMatchs)
-
     });
     
     conexion.query("SELECT * FROM usuarios WHERE matricula != ?", [id], (error, usuarios) => {
