@@ -114,11 +114,8 @@ app.get('/principal', (req, res, next)=>{
             usuariosMatchs.push(usuarios[iterable].matricula_match);
         });
         
-
         console.log(usuariosMatchs)
 
-        
-        
     });
     
     conexion.query("SELECT * FROM usuarios WHERE matricula != ?", [id], (error, usuarios) => {
