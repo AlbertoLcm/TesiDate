@@ -2,11 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const socket = io();
 
-
+    const contenedor = document.getElementById('contChat1');
+    const matricula = document.getElementById('ChatMatricula');
+    const matriculaUser = document.getElementById('ChatMatriculaUser');
     const btnEnviar = document.getElementById('btnEnviar');
-    const contenedor = document.getElementById('contChat1')
     
     const enviar = () => {
+
         let mensaje = document.getElementById('mensajeChat1');
         let contEmisor = document.createElement("div");
         contEmisor.id = "contEmisor";
@@ -18,16 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         contenedor.appendChild(contEmisor);
 
-        console.log('hola desde el boton');
 
-        socket.emit('mensaje-del-cliente', mensaje.value);
+        socket.emit(`send-message`, {
+            "mensaje": mensaje.value,
+            "emisor": matriculaUser.value,
+            "receptor": matricula.value
+        });
         
+        console.log(matricula.value)
         mensaje.value = '';
-
     }
 
-    socket.on("mensaje-servidor", (mensaje) => {
-        console.log(mensaje);
+    socket.on(`new-message-${matriculaUser.value}-${matricula.value}`, (mensaje) => {
         let contReceptor = document.createElement("div");
         contReceptor.id = "contReceptor";
         contReceptor.innerHTML = `

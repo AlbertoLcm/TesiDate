@@ -330,7 +330,7 @@
         height: auto;
         color: #f3f3f3;
         border-radius: 10px;
-        background-color: #008F64;
+        background-color: #00CC8E;
         font-size: 20px;
         max-width: 70%;
         margin-bottom: 5px;
@@ -340,12 +340,12 @@
         display: flex;
     }
     #mensajeReceptor{
-        color: #f3f3f3;
+        color: #3f3f3f;
         padding-left: 10px;
         padding-right: 10px;
         height: auto;
         border-radius: 10px;
-        background-color: #00CC8E;
+        background-color: #f3f3f3;
         font-size: 20px;
         max-width: 70%;
         margin-bottom: 5px;
@@ -377,10 +377,11 @@
         color: #f3f3f3;
     }
     #headerChat {
+        display: flex;
+        padding: 10px;
+        align-items: center;
         height: 10vh;
         border-radius: 20px;
-        display: flex;
-        align-items: center;
         background-color: #00CC8E;
     }
     #headerChat a {
@@ -389,6 +390,26 @@
     }
     #headerChat a i{
         font-size: 45px;
+    }
+    #headerChat a{
+        display: flex;
+        align-items: center;
+    }
+    #headerChat #ChatHeaderFoto{
+        height: 45pt;
+        width: 45pt;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 10px;
+        display: inline-block;
+    }
+    #headerChat #ChatHeaderName{
+        margin-top: 5px;
+        color: #f3f3f3;
+        display: inline-block;
+        height: 45pt;
+        display: flex;
+        align-items: center;
     }
    
     

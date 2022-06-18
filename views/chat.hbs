@@ -7,8 +7,8 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="icon" href="img/logo.png">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="icon" href="../img/logo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     
     <title>TesiDate</title>
@@ -18,26 +18,41 @@
     <header>
       <div id="imgContHeader">
         <a href="/perfil">
-          <img src="{{user.foto}}" alt="" id="imgHeader">
+          <img src="../{{user.foto}}" alt="" id="imgHeader">
         </a>
       </div>
       <a href="/principal">
         <div id="tituloHeader">
-          <img src="img/logo.png" id="logo">
+          <img src="../img/logo.png" id="logo">
           <h1>TesiDate</h1>
         </div>
       </a>
     </header>
 
     <section id="headerChat">
-        <div class="container-sm">
+        <div id="btnRegresar">
             <a href="/mensajes"><i class="bi bi-arrow-left-short"></i></a>
         </div>
+
+        <a href="/usuario/{{matricula}}">
+          <div id="ChatHeaderFoto">
+              <img src="../{{foto}}" alt="" id="imgHeader">
+          </div>
+
+          <div id="ChatHeaderName">
+            <h3>{{nombre}}</h3>
+          </div>
+        </a>
     </section>
 
+
+    <input type="text" class="d-none" value="{{matricula}}" id="ChatMatricula">
+    <input type="text" class="d-none" value="{{user.id}}" id="ChatMatriculaUser">
+
     <!-- Contenedor que guarda todos los mensajes -->
-    <div id="contChat1">
-      {{!-- <div id="contEmisor">
+    <div id="contChat1"> 
+
+       {{!-- <div id="contEmisor">
         <div id="mensajeEmisor">
           Esto es un mensaje enviado
         </div>
@@ -47,8 +62,75 @@
         <div id="mensajeReceptor">
           Esto es un mensaje recibido
         </div>
-      </div> --}}
+      </div>  --}}
+     
       
+     {{!-- {{--<div id="contEmisor">
+        <div id="mensajeEmisor">
+          Esto es un mensaje enviado
+        </div>
+      </div>  
+
+      <div id="contReceptor">
+        <div id="mensajeReceptor">
+          Esto es un mensaje recibido
+        </div>
+      </div>
+      <div id="contEmisor">
+        <div id="mensajeEmisor">
+          Esto es un mensaje enviado
+        </div>
+      </div>  
+
+      <div id="contReceptor">
+        <div id="mensajeReceptor">
+          Esto es un mensaje recibido
+        </div>
+      </div>
+      <div id="contEmisor">
+        <div id="mensajeEmisor">
+          Esto es un mensaje enviado
+        </div>
+      </div>  
+
+      <div id="contReceptor">
+        <div id="mensajeReceptor">
+          Esto es un mensaje recibido
+        </div>
+      </div>
+      <div id="contEmisor">
+        <div id="mensajeEmisor">
+          Esto es un mensaje enviado
+        </div>
+      </div>  
+
+      <div id="contReceptor">
+        <div id="mensajeReceptor">
+          Esto es un mensaje recibido
+        </div>
+      </div>
+      <div id="contEmisor">
+        <div id="mensajeEmisor">
+          Esto es un mensaje enviado
+        </div>
+      </div>  
+
+      <div id="contReceptor">
+        <div id="mensajeReceptor">
+          Esto es un mensaje recibido
+        </div>
+      </div>
+      <div id="contEmisor">
+        <div id="mensajeEmisor">
+          Esto es un mensaje enviado
+        </div>
+      </div>  
+
+      <div id="contReceptor">
+        <div id="mensajeReceptor">
+          Esto es un mensaje recibido
+        </div>
+      </div>  --}}
     </div>
 
     <!-- Caja de texto y boton de enviar -->
@@ -66,7 +148,7 @@
     
     <script src="/socket.io/socket.io.js" charset="utf-8"></script>
 
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
     
   </body>
 </html>

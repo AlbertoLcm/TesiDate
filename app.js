@@ -1,11 +1,11 @@
-const http = require('http');
 const express = require('express');
+const http = require('http');
 const multer = require('multer');
 const cors = require('cors');
 const math = require('mathjs');
 
 // Modulos para la autenticacion de usuario
-const { json } = require('express/lib/response');
+const { json, render } = require('express/lib/response');
 const hbs = require('hbs');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
@@ -15,10 +15,10 @@ const PassportLocal = require('passport-local').Strategy;
 require('dotenv').config();
 
 const app = express();
+const server = http.createServer(app)
+const socketio = require('socket.io')(server);
 
-const server = http.createServer(app);
 
-const io = require('socket.io')(server);
 
 app.use(cors());
 const port = process.env.PORT;
@@ -137,8 +137,40 @@ app.get('/principal', (req, res, next)=>{
     });
 });
 
-app.get('/chat', (req, res) => {
-    res.render('chat');
+app.get('/chat/:id', (req, res, next)=>{
+    if(req.isAuthenticated()) return next();
+
+    res.redirect('/');
+}, (req, res) => {
+
+    const matricula = req.params.id;
+    
+    conexion.query('SELECT * FROM usuarios WHERE matricula = ?', [matricula], (error, usuarioUsuarios) => {
+
+        conexion.query('SELECT * FROM chats WHERE matricula = ?', [matricula], (error, usuarioChats) => {
+            if(usuarioChats[0] == undefined){
+                console.log('no existe en los chats');
+                conexion.query('INSERT INTO chats SET ?', {
+                    nombre: usuarioUsuarios[0].nombre,
+                    matricula: matricula
+                });
+
+                conexion.query('SELECT * FROM chats WHERE matricula = ?', [matricula], (error, usuario) => {
+                    res.render('chat', usuario[0]);
+                    console.log(usuario[0].nombre);
+                });
+            }else{
+                res.render('chat', usuarioUsuarios[0]);
+                console.log(usuarioUsuarios[0].nombre);
+            }
+        })
+    } );
+
+    // conexion.query('SELECT * FROM usuarios JOIN mensajes ON mensajes.matricula = usuarios.matricula where usuarios.matricula = ?', [matricula], (error, usuarios) => {
+    //     // res.render('interes', {usuarios});
+    //     console.log(usuarios);
+    // });
+    
 });
 
 app.get('/registrar', (req, res) => {
@@ -276,11 +308,22 @@ server.listen(port, () => {
     console.log(`Escuchando en http://localhost:${port}`);
 });
 
-let sockets = io.listen(server);
+// Sockets
+const io = socketio.listen(server)
 
-sockets.on('connection', (socket) => {
-    console.log('Cliente conectado', socket.id);
-    socket.on('mensaje-del-cliente', (mensaje) => {
-        sockets.emit(`mensaje-servidor`, mensaje);
-    })
-});
+io.on('connection', socket => {
+    console.log('usuario conectado');
+
+    socket.on('send-message', mensaje => {
+        io.sockets.emit(`new-message-${mensaje.receptor}-${mensaje.emisor}`, mensaje.mensaje);
+        
+        conexion.query('SELECT * FROM chats WHERE matricula = ?', [mensaje.receptor], (error, chat) => {
+            conexion.query('INSERT INTO mensajes SET ?', {
+                mensaje: mensaje.mensaje,
+                id_chat: chat[0].id_chat
+            });
+        });
+        
+        console.log(mensaje);
+    });
+});1
