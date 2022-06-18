@@ -144,32 +144,31 @@ app.get('/chat/:id', (req, res, next)=>{
 }, (req, res) => {
 
     const matricula = req.params.id;
-    
-    conexion.query('SELECT * FROM usuarios WHERE matricula = ?', [matricula], (error, usuarioUsuarios) => {
 
-        conexion.query('SELECT * FROM chats WHERE matricula = ?', [matricula], (error, usuarioChats) => {
-            if(usuarioChats[0] == undefined){
-                console.log('no existe en los chats');
-                conexion.query('INSERT INTO chats SET ?', {
-                    nombre: usuarioUsuarios[0].nombre,
-                    matricula: matricula
-                });
+    conexion.query('SELECT * FROM usuarios JOIN chats ON usuarios.matricula = chats.matricula_receptor where chats.matricula_receptor = ?', [matricula], (error, chats) => {
 
-                conexion.query('SELECT * FROM chats WHERE matricula = ?', [matricula], (error, usuario) => {
-                    res.render('chat', usuario[0]);
-                    console.log(usuario[0].nombre);
-                });
-            }else{
-                res.render('chat', usuarioUsuarios[0]);
-                console.log(usuarioUsuarios[0].nombre);
-            }
-        })
-    } );
+        console.log(chats)
 
-    // conexion.query('SELECT * FROM usuarios JOIN mensajes ON mensajes.matricula = usuarios.matricula where usuarios.matricula = ?', [matricula], (error, usuarios) => {
-    //     // res.render('interes', {usuarios});
-    //     console.log(usuarios);
-    // });
+        if(chats.length <= 0){
+            console.log('no hay datos');
+
+            conexion.query('INSERT INTO chats SET ?', {
+                matricula_propietario: req.user.id, 
+                matricula_receptor: matricula
+            },(error, usuario) => {
+                console.log('chat insertado');
+                res.redirect(`/chat/${matricula}`);
+            });
+
+            
+        }else{
+            conexion.query('SELECT * FROM mensajes WHERE matricula_emisor = ? AND matricula_receptor = ?', [req.user.id, matricula], (error, mensajes) => {
+                console.log({mensajes, chats})
+                res.render('chat', {mensajes, chats});
+            });
+        }
+        
+    });
     
 });
 
@@ -192,7 +191,76 @@ app.get('/mensajes', (req, res, next)=>{
 
     res.redirect('/');
 }, (req, res) => {
-    res.render('mensajes');
+
+    conexion.query('SELECT * FROM mensajes WHERE matricula_emisor = ?', [req.user.id], (error, chatsMensajes) => {
+
+        let chatIArray = [];
+        
+        const chatsI = Object.keys(chatsMensajes).map((key) => {
+            return [Number(key), chatsMensajes[key]];
+        });
+
+        chatsI.forEach((chat, i) => {
+            chatIArray.push(chatsMensajes[i].matricula_receptor);
+        });
+
+        const chatsIUnicos = chatIArray.filter((valor, indice) => {
+            return chatIArray.indexOf(valor) === indice;
+          }
+        );
+        
+        let chatsIncludes = [];
+        
+        if(chatsMensajes.length > 0){
+
+            conexion.query('SELECT * FROM usuarios JOIN chats ON usuarios.matricula = chats.matricula_receptor WHERE matricula_propietario = ?', [req.user.id], (error, chats) => {
+
+                const chatsArray = Object.keys(chats).map((key) => {
+                    return [Number(key), chats[key]];
+                });
+
+                chatsArray.forEach((chat, i) => {
+                    chatsIncludes.push(chats[i].matricula_receptor);
+                });
+
+                const chatsUnicos = chatsIncludes.filter((valor, indice) => {
+                    return chatsIncludes.indexOf(valor) === indice;
+                  }
+                );
+
+                if(chatsUnicos.length === chatsIUnicos.length){
+                    res.render('mensajes', {chats});
+                }else{
+
+                    chatsIUnicos.forEach((chat, i) => {
+                        console.log(chatsUnicos.includes(chatsIUnicos[i]));
+                        if(chatsUnicos.includes(chatsIUnicos[i]) == false){
+                            console.log('no esta, agrendando...')
+                            console.log(chatsIUnicos[i]);
+                            conexion.query('INSERT INTO chats SET ?', {
+                                matricula_propietario: req.user.id, 
+                                matricula_receptor: chatsIUnicos[i]
+                            },(error, usuario) => {
+                                if(error){
+    
+                                    console.log(error);
+                                    return;
+                                }
+                                console.log('chat guardado')
+                            });
+                        }
+                    });
+
+                    res.redirect('/mensajes');
+                }
+
+            });
+        }else{
+            res.render('mensajes', {chats});
+        }
+
+    });
+
 });
 
 app.get('/perfil', (req, res, next)=>{
@@ -315,15 +383,31 @@ io.on('connection', socket => {
     console.log('usuario conectado');
 
     socket.on('send-message', mensaje => {
+
+        conexion.query('INSERT INTO mensajes SET ?', {
+            mensaje: mensaje.mensaje,
+            receptor: false,
+            matricula_receptor: mensaje.emisor,
+            matricula_emisor: mensaje.receptor
+        }, (error, results) => {
+            if(error){
+                console.log(error);
+                return;
+            }
+            console.log('mensaje guardado')
+        });
+
         io.sockets.emit(`new-message-${mensaje.receptor}-${mensaje.emisor}`, mensaje.mensaje);
         
-        conexion.query('SELECT * FROM chats WHERE matricula = ?', [mensaje.receptor], (error, chat) => {
-            conexion.query('INSERT INTO mensajes SET ?', {
-                mensaje: mensaje.mensaje,
-                id_chat: chat[0].id_chat
-            });
+        console.log({mensaje})
+        
+        conexion.query('INSERT INTO mensajes SET ?', {
+            mensaje: mensaje.mensaje,
+            receptor: true,
+            matricula_receptor: mensaje.receptor,
+            matricula_emisor: mensaje.emisor}, (error, results) => {
+            console.log('mensaje guardado')
         });
         
-        console.log(mensaje);
     });
-});1
+});

@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const matriculaUser = document.getElementById('ChatMatriculaUser');
     const btnEnviar = document.getElementById('btnEnviar');
     
+    console.log(matricula.value)
+    
     const enviar = () => {
 
         let mensaje = document.getElementById('mensajeChat1');
@@ -27,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "receptor": matricula.value
         });
         
-        console.log(matricula.value)
         mensaje.value = '';
     }
 

@@ -36,19 +36,23 @@
 
     <div class="container" id="contMensajes">
 
-      <a href="/chat">
+    {{#each chats}}
+
+      <a href="/chat/{{matricula_receptor}}">
         <div id="contChat">
           <div id="imgContChat">
-            <img src="img/user.jpg" alt="" id="imgChat">
+            <img src="{{foto}}" alt="" id="imgChat">
           </div>
           <div id="chat">
-            <h3>Usuario</h3>
-            Ultimo mensaje
+            <h3>{{nombre}}</h3>
+            Abrir conversación
           </div>
         </div>
       </a>      
-    </div>
 
+    {{/each}}
+
+    </div>
     <!-- Nav -->
       <div class="container-sm">
           <div class="row" id="nav">

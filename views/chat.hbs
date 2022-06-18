@@ -34,103 +34,44 @@
             <a href="/mensajes"><i class="bi bi-arrow-left-short"></i></a>
         </div>
 
-        <a href="/usuario/{{matricula}}">
+        <a href="/usuario/{{chats.[0].matricula}}">
           <div id="ChatHeaderFoto">
-              <img src="../{{foto}}" alt="" id="imgHeader">
+              <img src="../{{chats.[0].foto}}" alt="" id="imgHeader">
           </div>
 
           <div id="ChatHeaderName">
-            <h3>{{nombre}}</h3>
+            <h3>{{chats.[0].nombre}}</h3>
           </div>
         </a>
     </section>
 
 
-    <input type="text" class="d-none" value="{{matricula}}" id="ChatMatricula">
     <input type="text" class="d-none" value="{{user.id}}" id="ChatMatriculaUser">
+    <input type="text" class="d-none" value="{{chats.[0].[matricula_receptor]}}" id="ChatMatricula">
 
     <!-- Contenedor que guarda todos los mensajes -->
     <div id="contChat1"> 
+      {{#each mensajes}}
 
-       {{!-- <div id="contEmisor">
-        <div id="mensajeEmisor">
-          Esto es un mensaje enviado
-        </div>
-      </div>  
+        {{#if receptor}}
+          <div id="contEmisor">
+            <div id="mensajeEmisor">
+              {{mensaje}}
+            </div>
+          </div>  
+        {{/if}}
 
-      <div id="contReceptor">
-        <div id="mensajeReceptor">
-          Esto es un mensaje recibido
-        </div>
-      </div>  --}}
+        {{#unless receptor }}
+          <div id="contReceptor">
+            <div id="mensajeReceptor">
+              {{mensaje}}
+            </div>
+          </div> 
+        {{/unless}}
+
+
+      {{/each}}
      
-      
-     {{!-- {{--<div id="contEmisor">
-        <div id="mensajeEmisor">
-          Esto es un mensaje enviado
-        </div>
-      </div>  
-
-      <div id="contReceptor">
-        <div id="mensajeReceptor">
-          Esto es un mensaje recibido
-        </div>
-      </div>
-      <div id="contEmisor">
-        <div id="mensajeEmisor">
-          Esto es un mensaje enviado
-        </div>
-      </div>  
-
-      <div id="contReceptor">
-        <div id="mensajeReceptor">
-          Esto es un mensaje recibido
-        </div>
-      </div>
-      <div id="contEmisor">
-        <div id="mensajeEmisor">
-          Esto es un mensaje enviado
-        </div>
-      </div>  
-
-      <div id="contReceptor">
-        <div id="mensajeReceptor">
-          Esto es un mensaje recibido
-        </div>
-      </div>
-      <div id="contEmisor">
-        <div id="mensajeEmisor">
-          Esto es un mensaje enviado
-        </div>
-      </div>  
-
-      <div id="contReceptor">
-        <div id="mensajeReceptor">
-          Esto es un mensaje recibido
-        </div>
-      </div>
-      <div id="contEmisor">
-        <div id="mensajeEmisor">
-          Esto es un mensaje enviado
-        </div>
-      </div>  
-
-      <div id="contReceptor">
-        <div id="mensajeReceptor">
-          Esto es un mensaje recibido
-        </div>
-      </div>
-      <div id="contEmisor">
-        <div id="mensajeEmisor">
-          Esto es un mensaje enviado
-        </div>
-      </div>  
-
-      <div id="contReceptor">
-        <div id="mensajeReceptor">
-          Esto es un mensaje recibido
-        </div>
-      </div>  --}}
     </div>
 
     <!-- Caja de texto y boton de enviar -->
