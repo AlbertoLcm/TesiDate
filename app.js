@@ -311,6 +311,17 @@ app.get('/usuario/:id', (req, res, next)=>{
 
 // peticiones POST
 
+app.post('/editar', (req, res) => {
+    const {correo, password} = req.body;
+
+    conexion.query('update usuarios set ? where correo = ?', [{
+        password: password},
+        correo], (error, results) => {
+        if (error) throw error;
+        res.redirect('/');
+    });
+});
+
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, './public/img');
