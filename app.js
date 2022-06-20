@@ -256,7 +256,7 @@ app.get('/mensajes', (req, res, next)=>{
 
             });
         }else{
-            res.render('mensajes', {chats});
+            res.render('mensajes', {chatsMensajes});
         }
 
     });
