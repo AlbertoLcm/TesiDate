@@ -194,22 +194,24 @@ app.get('/mensajes', (req, res, next)=>{
 
     conexion.query('SELECT * FROM mensajes WHERE matricula_emisor = ?', [req.user.id], (error, chatsMensajes) => {
 
-        let chatIArray = [];
+        let allchatsReceptores = [];
         
-        const chatsI = Object.keys(chatsMensajes).map((key) => {
+        const allchats = Object.keys(chatsMensajes).map((key) => {
             return [Number(key), chatsMensajes[key]];
         });
 
-        chatsI.forEach((chat, i) => {
-            chatIArray.push(chatsMensajes[i].matricula_receptor);
+        allchats.forEach((chat, i) => {
+            allchatsReceptores.push(chatsMensajes[i].matricula_receptor);
         });
 
-        const chatsIUnicos = chatIArray.filter((valor, indice) => {
-            return chatIArray.indexOf(valor) === indice;
+        const chatsReceptores = allchatsReceptores.filter((valor, indice) => {
+            return allchatsReceptores.indexOf(valor) === indice;
           }
         );
         
         let chatsIncludes = [];
+
+        console.log(chatsMensajes.length);
         
         if(chatsMensajes.length > 0){
 
@@ -223,23 +225,31 @@ app.get('/mensajes', (req, res, next)=>{
                     chatsIncludes.push(chats[i].matricula_receptor);
                 });
 
-                const chatsUnicos = chatsIncludes.filter((valor, indice) => {
+                const chatsEnBD = chatsIncludes.filter((valor, indice) => {
                     return chatsIncludes.indexOf(valor) === indice;
                   }
                 );
 
-                if(chatsUnicos.length === chatsIUnicos.length){
+                console.log("estos son los chats que estan guardados",chatsEnBD)
+                console.log('estos son los chats que tiene la bd',chatsReceptores);
+                
+
+                if(chatsEnBD.length === chatsReceptores.length){
                     res.render('mensajes', {chats});
                 }else{
 
-                    chatsIUnicos.forEach((chat, i) => {
-                        console.log(chatsUnicos.includes(chatsIUnicos[i]));
-                        if(chatsUnicos.includes(chatsIUnicos[i]) == false){
+                    console.log(chatsEnBD.includes(chatsReceptores))
+                    let contador = 0;
+
+                    do {
+
+                        if(chatsEnBD.includes(chatsReceptores[contador]) == false){
+                            chatsEnBD.push(chatsReceptores[contador]);
                             console.log('no esta, agrendando...')
-                            console.log(chatsIUnicos[i]);
+                            console.log(chatsReceptores[contador]);
                             conexion.query('INSERT INTO chats SET ?', {
                                 matricula_propietario: req.user.id, 
-                                matricula_receptor: chatsIUnicos[i]
+                                matricula_receptor: chatsReceptores[contador]
                             },(error, usuario) => {
                                 if(error){
     
@@ -249,13 +259,38 @@ app.get('/mensajes', (req, res, next)=>{
                                 console.log('chat guardado')
                             });
                         }
-                    });
 
+                        contador ++;
+
+                        
+                    } while (chatsEnBD.length != chatsReceptores.length );
+                    
+                    // chatsReceptores.forEach((chat, i) => {
+                    //     console.log(chatsEnBD.includes(chatsReceptores[i]));
+                    //     if(chatsEnBD.includes(chatsReceptores[i]) == false){
+                    //         chatsEnBD.push(chatsReceptores[i]);
+                    //         console.log('no esta, agrendando...')
+                    //         console.log(chatsReceptores[i]);
+                    //         conexion.query('INSERT INTO chats SET ?', {
+                    //             matricula_propietario: req.user.id, 
+                    //             matricula_receptor: chatsReceptores[i]
+                    //         },(error, usuario) => {
+                    //             if(error){
+    
+                    //                 console.log(error);
+                    //                 return;
+                    //             }
+                    //             console.log('chat guardado')
+                    //         });
+                    //     }
+                        
+                    // });
                     res.redirect('/mensajes');
                 }
 
             });
         }else{
+            console.log('no tiene mensajes');
             res.render('mensajes', {chatsMensajes});
         }
 
