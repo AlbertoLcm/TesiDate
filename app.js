@@ -233,7 +233,6 @@ app.get('/mensajes', (req, res, next)=>{
                 console.log("estos son los chats que estan guardados",chatsEnBD)
                 console.log('estos son los chats que tiene la bd',chatsReceptores);
                 
-
                 if(chatsEnBD.length === chatsReceptores.length){
                     res.render('mensajes', {chats});
                 }else{
@@ -264,6 +263,8 @@ app.get('/mensajes', (req, res, next)=>{
 
                         
                     } while (chatsEnBD.length != chatsReceptores.length );
+
+                    // este es el codigo que tambien funciona
                     
                     // chatsReceptores.forEach((chat, i) => {
                     //     console.log(chatsEnBD.includes(chatsReceptores[i]));
